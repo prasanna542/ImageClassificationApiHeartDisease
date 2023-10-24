@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f3f4f6;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            border-radius: 8px;
+            padding: 8px 20px;
+            padding-right: 50px;
+            text-align: left;
+        }
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+        .file-name {
+            margin-left: 10px;
+        }
+        .submit-button {
+            margin-top: 20px;
+        }
+
+        /* Responsive CSS */
+        @media (max-width: 600px) {
+            .container {
+                max-width: 90%;
+            }
+            .btn {
+                width: 100%;
+                padding-right: 30px;
+                font-size: 16px;
+            }
+            .file-name {
+                font-size: 14px;
+            }
+            .submit-button {
+                width: 100%;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload an Image</h1>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <div class="upload-btn-wrapper">
+                <button class="btn">Choose an Image</button>
+                <input type="file" name="file" id="file" accept="image/*">
+                <span class="file-name">No file selected</span>
+            </div>
+            <br>
+            <input type="submit" value="Analyze Ecg" class="submit-button">
+        </form>
+    </div>
+
+    <script>
+        // Display the selected file name when a file is chosen
+        const fileInput = document.getElementById('file');
+        const fileDisplay = document.querySelector('.file-name');
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileDisplay.textContent = fileInput.files[0].name;
+            } else {
+                fileDisplay.textContent = 'No file selected';
+            }
+        });
+    </script>
+</body>
+</html>

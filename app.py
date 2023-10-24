@@ -1,20 +1,4 @@
-# from flask import Flask, request, jsonify
-# import tensorflow as tf
-# from tensorflow import keras
-
-# from flask import Flask, request, jsonify
-# from tensorflow.keras.models import load_model
-
-# app = Flask(__name__)
-
-# # model = load_model('./model/best_model.h5')
-# model = keras.models.load_model('./model/best_model.h5')
-
-# load('./model/logreg.pkl')
-
-
-from flask import Flask, request, jsonify
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import tensorflow as tf
 import numpy as np
 from PIL import Image
@@ -23,17 +7,25 @@ from tensorflow import keras
 app = Flask(__name__)
 
 # Load the pre-trained machine learning model
-model = keras.models.load_model('./model/model_vgg19.h5')
+model = keras.models.load_model('model_vgg19.h5')
 
 @app.route('/')
 def index():
-    return('<h1> JSON API for predicting Coronary Heart Disease in a patient. </h1>')
+    # return('<h1> JSON API for predicting Coronary Heart Disease in a patient. </h1>')
+    return render_template('index.html')
 
 
 
-@app.route('/predict', methods=['POST'])
+@app.route('/', methods=['POST'])
 def process_image():
     file = request.files['file']
+
+    image_path = "./images/"+ file.filename
+    file.save(image_path)
+
+
+
+
     img = Image.open(file)
     
     # Convert the image to RGB format
