@@ -3,6 +3,9 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 from tensorflow import keras
+from keras.preprocessing.image import load_img,img_to_array
+from keras.applications.vgg16 import preprocess_input, decode_predictions
+
 
 app = Flask(__name__)
 
@@ -38,7 +41,17 @@ def process_image():
 
     # Make predictions with the model
     predictions = model.predict(np.expand_dims(img, axis=0))
-    return jsonify({'msg': 'success', 'predictions': predictions.tolist()})
+    print(predictions)
+    data = predictions[0]
+
+    max_value = max(data)
+    # max_index = data.index(max_value)
+    max_index = int(np.argmax(data))
+    print(max_index)
+    # return render_template('index.html', prediction= predictions)
+    return jsonify({'diseaseName':max_index})
+    
+
 
 
 if __name__ == "__main__":
